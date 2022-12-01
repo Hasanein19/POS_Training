@@ -101,12 +101,11 @@ class AccountMove(models.Model):
 
 
 class AccountMoveLine(models.Model):
+    _name = "account.move.line"
     _inherit = "account.move.line"
     einv_amount_discount = fields.Monetary(string="Amount discount", compute="_compute_amount_discount", store='True',
                                            help="")
     einv_amount_tax = fields.Monetary(string="Amount tax", compute="_compute_amount_tax", store='True', help="")
-    sale_order_lines_ids = fields.Many2many('sale.order.line', 'sale_order_line_invoice_report_rel', 'invoice_line_id',
-                                            'order_line_id', 'Sale Order Lines', readonly=True)
 
     @api.depends('discount', 'quantity', 'price_unit')
     def _compute_amount_discount(self):
